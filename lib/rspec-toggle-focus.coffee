@@ -15,7 +15,6 @@ module.exports = RspecToggleFocus =
     rspecToggleFocusViewState: @rspecToggleFocusView.serialize()
 
   toggle: ->
-    console.log 'RspecToggleFocus was toggled!'
     if editor = atom.workspace.getActiveTextEditor()
       cursors = editor.getCursors()
       for cursor in cursors

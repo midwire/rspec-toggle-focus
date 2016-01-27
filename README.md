@@ -8,4 +8,8 @@ Place the cursor on a line beginning with `describe`, `context`, or `it` for the
 
 Hit: `Option+Shift+F`
 
-![A screenshot of your package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+![A screenshot of your package](https://raw.githubusercontent.com/midwire/rspec-toggle-focus/master/demo.gif)
+
+## License
+
+Copyright (c) 2016. Licensed under the MIT license.

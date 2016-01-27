@@ -1,0 +1,21 @@
+{
+  "name": "rspec-toggle-focus",
+  "main": "./lib/rspec-toggle-focus",
+  "version": "0.1.0",
+  "description": "Toggle :focus tag for RSpec",
+  "keywords": [
+    "rspec",
+    "toggle",
+    "focus"
+  ],
+  "activationCommands": {
+    "atom-workspace": "rspec-toggle-focus:toggle"
+  },
+  "repository": "https://github.com/atom/rspec-toggle-focus",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}

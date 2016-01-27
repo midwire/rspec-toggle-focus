@@ -2,7 +2,7 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Toggle rspec-toggle-focus'
+      'label': 'Toggle :focus'
       'command': 'rspec-toggle-focus:toggle'
     }
   ]
@@ -10,7 +10,7 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'rspec-toggle-focus'
+      'label': 'RSpec Toggle :focus'
       'submenu': [
         {
           'label': 'Toggle'

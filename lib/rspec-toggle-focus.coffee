@@ -1,33 +1,41 @@
-RspecToggleFocusView = require './rspec-toggle-focus-view'
 {CompositeDisposable} = require 'atom'
 
 module.exports = RspecToggleFocus =
-  rspecToggleFocusView: null
-  modalPanel: null
   subscriptions: null
 
   activate: (state) ->
-    @rspecToggleFocusView = new RspecToggleFocusView(state.rspecToggleFocusViewState)
-    @modalPanel = atom.workspace.addModalPanel(item: @rspecToggleFocusView.getElement(), visible: false)
-
-    # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
-
-    # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'rspec-toggle-focus:toggle': => @toggle()
+    @subscriptions.add atom.commands.add 'atom-workspace',
+      'rspec-toggle-focus:toggle': => @toggle()
 
   deactivate: ->
-    @modalPanel.destroy()
     @subscriptions.dispose()
-    @rspecToggleFocusView.destroy()
 
   serialize: ->
     rspecToggleFocusViewState: @rspecToggleFocusView.serialize()
 
   toggle: ->
     console.log 'RspecToggleFocus was toggled!'
+    if editor = atom.workspace.getActiveTextEditor()
+      cursors = editor.getCursors()
+      for cursor in cursors
+        row = cursor.getBufferRow()
+        line = editor.lineTextForBufferRow(row)
+        focus_regex = /.*((?:it|describe|context)\s+(?:\"[^\"]+\"|\'[^\']+\'))(\,\s+focus\:true)(.+do)/i
 
-    if @modalPanel.isVisible()
-      @modalPanel.hide()
-    else
-      @modalPanel.show()
+        # focus:true is found, remove it
+        if focus_match = focus_regex.exec(line)
+          line_without_focus = focus_match[1] + focus_match[3]
+          editor.moveToFirstCharacterOfLine()
+          editor.selectToEndOfLine()
+          editor.insertText(line_without_focus)
+
+        # focus:true is NOT found, add it
+        else
+          unfocus_regex = /.*((?:it|describe|context)\s+(?:\"[^\"]+\"|\'[^\']+\'))(.+do)/i
+
+          if unfocus_match = unfocus_regex.exec(line)
+            line_with_focus = unfocus_match[1] + ', focus:true' + unfocus_match[2]
+            editor.moveToFirstCharacterOfLine()
+            editor.selectToEndOfLine()
+            editor.insertText(line_with_focus)

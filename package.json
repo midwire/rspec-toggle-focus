@@ -1,7 +1,7 @@
 {
   "name": "rspec-toggle-focus",
   "main": "./lib/rspec-toggle-focus",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Toggle :focus tag for RSpec",
   "keywords": [
     "rspec",

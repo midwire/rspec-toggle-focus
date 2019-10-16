@@ -20,7 +20,7 @@ module.exports = RspecToggleFocus =
       for cursor in cursors
         row = cursor.getBufferRow()
         line = editor.lineTextForBufferRow(row)
-        focus_regex = /.*((?:it|describe|context)\s+(?:\"[^\"]+\"|\'[^\']+\'))(\,\s+focus\:\s*true)(.+do)/i
+        focus_regex = /.*((?:it|describe|context|feature|scenario)\s+(?:\"[^\"]+\"|\'[^\']+\'))(\,\s+focus\:\s*true)(.+do)/i
 
         # focus:true is found, remove it
         if focus_match = focus_regex.exec(line)
@@ -31,7 +31,7 @@ module.exports = RspecToggleFocus =
 
         # focus:true is NOT found, add it
         else
-          unfocus_regex = /.*((?:it|describe|context)\s+(?:\"[^\"]+\"|\'[^\']+\'))(.+do)/i
+          unfocus_regex = /.*((?:it|describe|context|feature|scenario)\s+(?:\"[^\"]+\"|\'[^\']+\'))(.+do)/i
 
           if unfocus_match = unfocus_regex.exec(line)
             line_with_focus = unfocus_match[1] + ', focus: true' + unfocus_match[2]
